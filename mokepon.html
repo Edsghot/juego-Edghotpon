@@ -4,36 +4,34 @@
         <meta charset="UTF-8"/>
         <title>MOKEPON! </title>
         <script src="./js/mokepon.js"></script>
+        <link rel="stylesheet" href="./styles.css">
     </head
     <body>
-        <h1>MOKEPON! 🌊🔥🍁</h1>
 
         <section id = "seccion-de-seleccionar-mascota">
-            <h2>Elije tu mascota: </h2>
+            <h1 class="titulo">EDSGHOTPON! 🌊🔥🍁</h1>
 
-            <input type="radio" name="mascota" id="hipodoge"/>
-            <label for="hipodoge">Hipoge</label>
-            <input type="radio" name="mascota" id="capipepo"/>
-            <label for="capipepo">Capipepo</label>
-            <input type="radio" name="mascota" id="ratigueya"/>
-            <label for="ratigueya">Ratigueya</label>
-            <input type="radio" name="mascota" id="langostelvis"/>
-            <label for="langostelvis">Langostelvis</label>
-            <input type="radio" name="mascota" id="tucapalma"/>
-            <label for="tucapalma">Tucapalma</label>
-            <input type="radio" name="mascota" id="pydos"/>
-            <label for="pydos">Pydos</label>
+            <h2>Elije tu personaje: </h2>
+
+           
+            <label class="tarjeta-de-personaje" for="lupin">Lupin</label>
+            <input type="radio" name="personaje" id="lupin"/>
+            <label class="tarjeta-de-personaje" for="mehmed">Mehmed</label>
+            <input type="radio" name="personaje" id="mehmed"/>
+            <label class="tarjeta-de-personaje" for="luan">Luan</label>
+            <input type="radio" name="personaje" id="luan"/>
 
             <button id = "btnSeleccionar">Seleccionar </button>
         </section>
 
 
         <section id = "seleccionar-ataque">
+            <h1 class="titulo">EDSGHOTPON! 🌊🔥🍁</h1>
+            
             <h2>Elije tu ataque: </h2>
             
-
-            <p>Tu mascota <span id="spMascotaJugador"></span> tiene <span>3</span> vidas</p>
-            <p>La mascota <span id="spMascotaEnemigo"></span> del enemigo tiene <span>3</span> vidas</p>
+            <p>Tu personaje <span id="spPersonajeJugador"></span> tiene <span id="vidasJugador">3</span> vidas</p>
+            <p>La personaje <span id="spPersonajeEnemigo"></span> del enemigo tiene <span id="vidasEnemigo">3</span> vidas</p>
 
 
             <p>
@@ -44,7 +42,7 @@
         </section>
 
         <section id="mensajes">
-            <p>Tu mascota atacó con FUEGO, las mascotas del enemigo atacó con TIERRA - GANASTE✌️</p>
+            
         </section>
 
         <section id="Reiniciar">

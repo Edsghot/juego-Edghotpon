@@ -2,8 +2,11 @@
 /*
 :::::::VARIABLES GLOBALES::::::::*/
 
-let mascotas = ['hipodoge','capipepo','ratigueya','langostelvis','tucapalma','pydos']
+let mascotas = ['lupin','mehmed','luan']
 let ataqueJugador,ataqueEnemigo 
+let vidasJugador = 3
+let vidasEnemigo = 3
+let mensajeF    
 //::::::::FIN:::::::::::::
 
 //funcion para generar numero aletorios en un rango
@@ -13,17 +16,25 @@ function aleatorio(min,max){
 
 //funcion para seleccionar el jugador del enemigo
 function seleccionarMascotaEnemigo(){
-    let ataqueAleatorio = aleatorio(0,5)
-    document.getElementById('spMascotaEnemigo').innerHTML = (mascotas[ataqueAleatorio].toUpperCase())
+    let ataqueAleatorio = aleatorio(0,3)
+    document.getElementById('spPersonajeEnemigo').innerHTML = (mascotas[ataqueAleatorio].toUpperCase())
 }
 
 //funcion para selecionar la mascota del jugador
 function seleccionarMascota(){
+    
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'block'
+
+
+    let sectionSeleccionarMascota = document.getElementById('seccion-de-seleccionar-mascota')
+    sectionSeleccionarMascota.style.display = 'none'
+
     seleccionarMascotaEnemigo()
     let c=0;
     for(let i=0;i<mascotas.length;i++){
         if(document.getElementById(mascotas[i]).checked){
-            document.getElementById('spMascotaJugador').innerHTML = (mascotas[i].toUpperCase()) 
+            document.getElementById('spPersonajeJugador').innerHTML = (mascotas[i].toUpperCase()) 
         }else{
             c++
         }
@@ -31,23 +42,24 @@ function seleccionarMascota(){
     if(c==mascotas.length){
         alert("error!... Selecciona una mascota!!")
     }
-
+    
     //llamando la funcion para escoger la mascota del enemigo
-   
+    
 }
+
 function ataqueAgua(){
     ataqueJugador = 'Agua'
-    alert(ataqueJugador)
+    ataqueAleatorioEnemigo()
 }
 function ataqueFuego(){
-    ataqueJugador = 'Fuego'
-    alert(ataqueJugador)
+    ataqueJugador = 'Fuego'  
+    ataqueAleatorioEnemigo()
 }
 function ataqueTierra(){
     ataqueJugador = 'Tierra'
-    alert(ataqueJugador)
+    ataqueAleatorioEnemigo()
 }
-function ataqueEnemigo(){
+function ataqueAleatorioEnemigo(){
     let ataque = aleatorio(1,3)
     if(ataque == 1){
         ataqueEnemigo = 'Agua'
@@ -56,11 +68,102 @@ function ataqueEnemigo(){
     }else{
         ataqueEnemigo = 'Tierra'
     }
-    alert(ataqueEnemigo)
+    verificarGanador()
+}
+
+//funcion para revisar las vidas
+function revisarVidas(){
+    let sectionReiniciar = document.getElementById('Reiniciar')   
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    
+    if(vidasJugador == 0){
+        crearMensajeFinal("Lo siento :c Perdiste")
+        sectionReiniciar.style.display = 'block'
+        //sectionSeleccionarAtaque.style.display = 'none' 
+    }else if(vidasEnemigo == 0){
+        crearMensajeFinal("FELICITACIONES!! GANASTE")
+        sectionReiniciar.style.display = 'block'
+       // sectionSeleccionarAtaque.style.display = 'none' 
+    }
+
+
+}
+
+//creando un mensaje  de ataques
+function verificarGanador(){
+    let spanVidasJugador = document.getElementById('vidasJugador')
+    let spanVidasEnemigo = document.getElementById('vidasEnemigo')
+     
+
+    if(ataqueJugador == ataqueEnemigo){
+        mensajeF = 'EMPATE'
+        crearMensaje()
+    }else if(ataqueJugador == 'Fuego' && ataqueEnemigo == 'Tierra'){
+        vidasEnemigo--
+        mensajeF = 'GANASTE'
+        crearMensaje()
+    }else if(ataqueJugador == 'Agua' && ataqueEnemigo == 'Fuego'){
+        vidasEnemigo--
+        mensajeF = 'GANASTE'
+        crearMensaje()
+    }else if(ataqueJugador == 'Tierra' && ataqueEnemigo == 'Agua'){
+        vidasEnemigo--
+        mensajeF = 'GANASTE'
+        crearMensaje()
+    }else{
+        vidasJugador--
+        mensajeF = 'PERDISTE'
+        crearMensaje()
+        
+        
+        
+    }
+
+    spanVidasEnemigo.innerHTML = vidasEnemigo
+    spanVidasJugador.innerHTML = vidasJugador
+    
+    revisarVidas()
+    
+}
+
+function crearMensaje(){
+    //si nosotros queremos agregar algo creado con js y meter dentro del html se usa el appendChild
+    let sectionM = document.getElementById('mensajes')
+
+    //para crear un elemento de html con createElement
+    let parrafo = document.createElement('p')
+    parrafo.innerHTML = 'Tu personaje ataco con '+ataqueJugador+', El personaje de tu enemigo ataco con '+ataqueEnemigo+' ->'+mensajeF
+
+    sectionM.appendChild(parrafo)
+}
+
+
+function crearMensajeFinal(resultadoF){
+    //si nosotros queremos agregar algo creado con js y meter dentro del html se usa el appendChild
+    let sectionM = document.getElementById('mensajes')
+
+    //para crear un elemento de html con createElement
+    let parrafo = document.createElement('p')
+    parrafo.innerHTML = resultadoF
+
+    sectionM.appendChild(parrafo)
+
+    let btnFuego = document.getElementById('btnFuego')
+    btnFuego.disabled = true
+    let btnAgua = document.getElementById('btnAgua')
+    btnAgua.disabled = true
+    let btnTierra = document.getElementById('btnTierra')
+    btnTierra.disabled = true
 }
 
 //funcion MAIN donde inicia todo el juego
 function iniciarJuego(){
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'none'
+
+    let sectionReiniciar = document.getElementById('Reiniciar')
+    sectionReiniciar.style.display = 'none'
+
     let btnMascotaJugador = document.getElementById('btnSeleccionar')
     btnMascotaJugador.addEventListener('click',seleccionarMascota)
 
@@ -71,8 +174,15 @@ function iniciarJuego(){
     btnAgua.addEventListener('click',ataqueAgua)
     let btnTierra = document.getElementById('btnTierra')
     btnTierra.addEventListener('click',ataqueTierra)
-
     
+
+    let btnReiniciar = document.getElementById('btnReiniciar')
+    btnReiniciar.addEventListener('click',reiniciarJuego)
+
+}
+
+function reiniciarJuego(){
+    location.reload()
 }
 
 //llamando a la funcion iniciar con el evento load(cuando cargue la pagina)

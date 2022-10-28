@@ -1,0 +1,44 @@
+.titulo {
+    color: rgb(223, 246, 255);
+    width: 308px;
+    height: 40px;
+    background: rgb(6, 40, 61);
+}
+
+
+#seccion-de-seleccionar-mascota{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarjeta-de-personaje{
+    width: 100px;
+    height: 100px;
+    background:rgb(37, 109, 133);
+    padding: 3px 10px;
+    box-sizing: border-box;
+    margin: 10px;
+    border: 2px inset rgb(71, 181, 255);
+    border-radius: 12px;
+}
+
+#btnSeleccionar{
+    width: 100px;
+    height: 30px;
+    border-radius: 12px;
+    color: white;
+    background: chocolate;
+
+}
+
+input{
+    display: none;
+}
+
+*{
+    background:rgb(6, 40, 61);
+}
+
