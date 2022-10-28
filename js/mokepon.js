@@ -27,7 +27,7 @@ function seleccionarMascota(){
     sectionSeleccionarAtaque.style.display = 'block'
 
 
-    let sectionSeleccionarMascota = document.getElementById('seccion-de-seleccionar-mascota')
+    let sectionSeleccionarMascota = document.getElementById('seccion-de-seleccionar-personaje')
     sectionSeleccionarMascota.style.display = 'none'
 
     seleccionarMascotaEnemigo()

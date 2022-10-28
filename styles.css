@@ -1,12 +1,11 @@
-.titulo {
-    color: rgb(223, 246, 255);
-    width: 308px;
-    height: 40px;
-    background: rgb(6, 40, 61);
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300&display=swap');
+body{
+    
+    font-family: 'Poppins', sans-serif;
+    background-color: #06283D;
 }
 
-
-#seccion-de-seleccionar-mascota{
+#seccion-de-seleccionar-personaje{
     display: flex;
     height: 100vh;
     flex-direction: column;
@@ -14,23 +13,57 @@
     align-items: center;
 }
 
+.titulo {
+    color: white;
+    font-size: 32px;
+    font-family: 'Fredoka One', cursive;
+}
+
+.subtitulo{
+    color: white;
+    font-size: 20px;
+}
+
+.tarjetas{
+    display: flex;
+    gap: 10px;
+
+}
+
 .tarjeta-de-personaje{
-    width: 100px;
-    height: 100px;
-    background:rgb(37, 109, 133);
+    width: 200px;
+    height: 250px;
+    background: #256D85;
     padding: 3px 10px;
     box-sizing: border-box;
     margin: 10px;
     border: 2px inset rgb(71, 181, 255);
     border-radius: 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column-reverse;
+    color: white;
 }
 
+.tarjeta-de-personaje img{
+    width: 140px;
+}
+.tarjeta-de-personaje p{
+    display: flex;
+
+}
+
+
 #btnSeleccionar{
-    width: 100px;
-    height: 30px;
-    border-radius: 12px;
+    margin-top: 30px;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
     color: white;
-    background: chocolate;
+    border: 2px solid white;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
 
 }
 
@@ -38,7 +71,8 @@ input{
     display: none;
 }
 
-*{
-    background:rgb(6, 40, 61);
+#seleccionar-ataque{
+    display: flex;
+
 }
 

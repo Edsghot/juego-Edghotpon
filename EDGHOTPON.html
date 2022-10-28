@@ -2,24 +2,38 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
-        <title>MOKEPON! </title>
+        <title>EDGHOTPON! </title>
         <script src="./js/mokepon.js"></script>
         <link rel="stylesheet" href="./styles.css">
     </head
     <body>
 
-        <section id = "seccion-de-seleccionar-mascota">
-            <h1 class="titulo">EDSGHOTPON! 🌊🔥🍁</h1>
+        <section id = "seccion-de-seleccionar-personaje">
+            <h1 class="titulo">EDGHOTPON!</h1>
 
-            <h2>Elije tu personaje: </h2>
+            <h2 class="subtitulo">Elije tu personaje: </h2>
 
-           
-            <label class="tarjeta-de-personaje" for="lupin">Lupin</label>
+            <div class="tarjetas">
+                           
+            <label class="tarjeta-de-personaje" for="lupin">
+                <p>Lupin</p>
+                <img src="./assets//lupin11.png" alt="">
+            </label>
             <input type="radio" name="personaje" id="lupin"/>
-            <label class="tarjeta-de-personaje" for="mehmed">Mehmed</label>
+            
+            <label class="tarjeta-de-personaje" for="mehmed">
+                <p>Mehmed</p>
+                <img src="./assets//mehmed1.png" alt="">
+            </label>
             <input type="radio" name="personaje" id="mehmed"/>
-            <label class="tarjeta-de-personaje" for="luan">Luan</label>
+            
+            <label class="tarjeta-de-personaje" for="luan">
+                <p>Luan</p>
+                <img src="./assets//luan1.png" alt="">
+            </label>
             <input type="radio" name="personaje" id="luan"/>
+
+            </div>
 
             <button id = "btnSeleccionar">Seleccionar </button>
         </section>
