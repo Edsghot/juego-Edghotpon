@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8"/>
         <title>EDGHOTPON! </title>
-        <script src="./js/mokepon.js"></script>
         <link rel="stylesheet" href="./styles.css">
     </head
     <body>
@@ -12,30 +11,14 @@
             <h1 class="titulo">EDGHOTPON!</h1>
 
             <h2 class="subtitulo">Elije tu personaje: </h2>
-
-            <div class="tarjetas">
-                           
-            <label class="tarjeta-de-personaje" for="lupin">
-                <p>Lupin</p>
-                <img src="./assets//lupin11.png" alt="">
-            </label>
-            <input type="radio" name="personaje" id="lupin"/>
-            
-            <label class="tarjeta-de-personaje" for="mehmed">
-                <p>Mehmed</p>
-                <img src="./assets//mehmed1.png" alt="">
-            </label>
-            <input type="radio" name="personaje" id="mehmed"/>
-            
-            <label class="tarjeta-de-personaje" for="luan">
-                <p>Luan</p>
-                <img src="./assets//luan1.png" alt="">
-            </label>
-            <input type="radio" name="personaje" id="luan"/>
+        
+            <div id="contenedorTarjetas" class="tarjetas">
+                
 
             </div>
 
             <button id = "btnSeleccionar">Seleccionar </button>
+
         </section>
 
 
@@ -44,24 +27,42 @@
             
             <h2>Elije tu ataque: </h2>
             
-            <p>Tu personaje <span id="spPersonajeJugador"></span> tiene <span id="vidasJugador">3</span> vidas</p>
-            <p>La personaje <span id="spPersonajeEnemigo"></span> del enemigo tiene <span id="vidasEnemigo">3</span> vidas</p>
-
-
-            <p>
-                <button id = "btnFuego">Fuego 🔥</button>
-                <button id="btnAgua">AGUA 🌊</button>
-                <button id="btnTierra">TIERRA 🍁</button>
-            </p>
+            <div class="tarjetas-ataques">
+                <button id = "btnFuego" class="botonAtaque">Fuego 🔥</button>
+                <button id="btnAgua" class="botonAtaque">AGUA 🌊</button>
+                <button id="btnTierra" class="botonAtaque">TIERRA 🍁</button>
+            </div>
         </section>
 
-        <section id="mensajes">
-            
-        </section>
+        
+        <div id="total">
 
-        <section id="Reiniciar">
-            <button id="btnReiniciar">Reiniciar</button>
-        </section>
+        <div id="mensajes">
+        
+            <p id="resultado"> Mucha suerte!!</p>
+
+            <section id="Reiniciar">
+                <button id="btnReiniciar">Reiniciar</button>
+            </section>
+
+        </div>
+
+        
+        <div class="ataque">
+            <div class="ataque-jugador">
+                <p id="spPersonajeJugador"></p>
+                <p id="vidasJugador">3</p>
+                <div id="ataqueJugador"></div>
+            </div>
+            <div class="ataque-enemigo">
+                <p id="spPersonajeEnemigo"></p>
+                <p id="vidasEnemigo">3</p>
+                <div id="ataqueEnemigo"></div>              
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/mokepon.js"></script>
 
     </body>    
 </html>

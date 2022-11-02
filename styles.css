@@ -8,9 +8,9 @@ body{
 #seccion-de-seleccionar-personaje{
     display: flex;
     height: 100vh;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .titulo {
@@ -24,36 +24,46 @@ body{
     font-size: 20px;
 }
 
-.tarjetas{
+.tarjetas, .tarjetas-ataques{
     display: flex;
-    gap: 10px;
+    gap: 8px;
 
 }
 
+
 .tarjeta-de-personaje{
-    width: 200px;
-    height: 250px;
+    width: 150px;
+    height: 230px;
     background: #256D85;
-    padding: 3px 10px;
+    padding: 10px;
     box-sizing: border-box;
-    margin: 10px;
+    margin: 8px;
     border: 2px inset rgb(71, 181, 255);
-    border-radius: 12px;
+    border-radius: 20px;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items:flex-start;
     flex-direction: column-reverse;
     color: white;
 }
 
 .tarjeta-de-personaje img{
-    width: 140px;
+    width: 138px;
 }
 .tarjeta-de-personaje p{
     display: flex;
-
+    flex-direction: column;
+    padding: 2px;
+    margin-top: 1px;
 }
 
+input{
+    display: none;
+}
+
+input:checked + label{
+    background-color: #DFF6FF;
+}
 
 #btnSeleccionar{
     margin-top: 30px;
@@ -64,15 +74,69 @@ body{
     border: 2px solid white;
     background: transparent;
     font-family: 'Poppins', sans-serif;
-
+    
 }
 
-input{
-    display: none;
+.content-principal{
+    display: flex;
 }
-
 #seleccionar-ataque{
     display: flex;
-
+    flex-direction: column;
+    align-items: center;
 }
 
+.botonAtaque{
+    background-color: #47B5FF;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border-color: transparent;
+    width: 100px;
+    color: white;
+}
+
+#mensajes{
+    width: 250px;
+    background: #47B5FF;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#Reiniciar{
+    border: transparent;
+    color: #0e476d; 
+    font-family: 'Poppins', sans-serif;
+}
+
+#total{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.ataque{
+    display: grid;
+    grid-template-columns: 100px 100px;
+}
+
+
+.ataque-jugador,.ataque-enemigo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+@media(max-width: 360px) {
+    .tarjetas, .tarjetas-ataques{
+        flex-direction: column;
+    }
+   
+    
+}

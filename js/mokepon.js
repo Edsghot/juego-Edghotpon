@@ -2,12 +2,67 @@
 /*
 :::::::VARIABLES GLOBALES::::::::*/
 
-let mascotas = ['lupin','mehmed','luan']
+const sectionMensaje = document.getElementById('total')
+const sectionSeleccionarMascota = document.getElementById('seccion-de-seleccionar-personaje')
+const sectionReiniciar = document.getElementById('Reiniciar')    
+const btnMascotaJugador = document.getElementById('btnSeleccionar')   
+const btnFuego = document.getElementById('btnFuego')
+const btnAgua = document.getElementById('btnAgua')
+const btnTierra = document.getElementById('btnTierra')
+const btnReiniciar = document.getElementById('btnReiniciar')
+
+let personajes = []
 let ataqueJugador,ataqueEnemigo 
+let opcionesPersonaje
+const contenedorTarjetas = document.getElementById('contenedorTarjetas')
+let personajeJugador
 let vidasJugador = 3
 let vidasEnemigo = 3
-let mensajeF    
+let mensajeF   
+
 //::::::::FIN:::::::::::::
+
+//clases
+class Edghotpon{
+
+    constructor(nombre,foto,vida){
+        this.nombre = nombre
+        this.foto = foto
+        this.vida = vida
+        this.ataques = []
+    }
+
+}
+
+let lupin = new Edghotpon('Lupin','./assets//lupin11.png',5)
+let mehmed = new Edghotpon('Mehmed','./assets//mehmed1.png',5)
+let luan = new Edghotpon('Luan','./assets//luan1.png',5)
+
+lupin.ataques.push(
+    {nombre: '🔥',id: 'btnFuego'},
+    {nombre: '🔥',id: 'btnFuego'},
+    {nombre: '🔥',id: 'btnFuego'},
+    { nombre: '🌊', id: 'btnAgua'},
+    {nombre: '🍁',id: 'btnTierra'},
+)
+
+mehmed.ataques.push(
+    { nombre: '🌊', id: 'btnAgua'},
+    { nombre: '🌊', id: 'btnAgua'},
+    { nombre: '🌊', id: 'btnAgua'},
+    {nombre: '🔥',id: 'btnFuego'},
+    {nombre: '🍁',id: 'btnTierra'},
+)
+
+luan.ataques.push(
+    {nombre: '🍁',id: 'btnTierra'},
+    {nombre: '🍁',id: 'btnTierra'},
+    {nombre: '🔥',id: 'btnFuego'},
+    { nombre: '🌊', id: 'btnAgua'},
+    {nombre: '🍁',id: 'btnTierra'},
+)
+
+personajes.push(lupin,mehmed,luan)
 
 //funcion para generar numero aletorios en un rango
 function aleatorio(min,max){
@@ -15,36 +70,51 @@ function aleatorio(min,max){
 }
 
 //funcion para seleccionar el jugador del enemigo
-function seleccionarMascotaEnemigo(){
-    let ataqueAleatorio = aleatorio(0,3)
-    document.getElementById('spPersonajeEnemigo').innerHTML = (mascotas[ataqueAleatorio].toUpperCase())
+function seleccionarPersonajeEnemigo(){
+    let ataqueAleatorio = aleatorio(0,personajes.length-1)
+    document.getElementById('spPersonajeEnemigo').innerHTML = (personajes[ataqueAleatorio].nombre)
 }
 
 //funcion para selecionar la mascota del jugador
-function seleccionarMascota(){
+function seleccionarPersonaje(){
     
     let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'block'
+    sectionSeleccionarAtaque.style.display = 'flex'
 
+  
+    sectionMensaje.style.display = 'flex'
 
-    let sectionSeleccionarMascota = document.getElementById('seccion-de-seleccionar-personaje')
+    
     sectionSeleccionarMascota.style.display = 'none'
 
-    seleccionarMascotaEnemigo()
     let c=0;
-    for(let i=0;i<mascotas.length;i++){
-        if(document.getElementById(mascotas[i]).checked){
-            document.getElementById('spPersonajeJugador').innerHTML = (mascotas[i].toUpperCase()) 
+    for(let i=0;i<personajes.length;i++){
+        if(document.getElementById(personajes[i].nombre).checked){
+            document.getElementById('spPersonajeJugador').innerHTML = (personajes[i].nombre) 
+            personajeJugador = personajes[i].nombre
         }else{
             c++
         }
     }
-    if(c==mascotas.length){
+    if(c==personajes.length){
         alert("error!... Selecciona una mascota!!")
     }
+
+    extraerAtaques(personajeJugador)
+    seleccionarPersonajeEnemigo()
     
     //llamando la funcion para escoger la mascota del enemigo
+}
+
+function extraerAtaques(personajeJugador){
+    let ataques = []
+    for(let i = 0;i<personajes.length;i++){
+        if(personajeJugador === personajes[i].nombre){
+            ataques = personajes[i].ataques
+        }
+    }
     
+    mostrarAtaques(ataques)
 }
 
 function ataqueAgua(){
@@ -74,15 +144,14 @@ function ataqueAleatorioEnemigo(){
 //funcion para revisar las vidas
 function revisarVidas(){
     let sectionReiniciar = document.getElementById('Reiniciar')   
-    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
     
     if(vidasJugador == 0){
         crearMensajeFinal("Lo siento :c Perdiste")
-        sectionReiniciar.style.display = 'block'
+        sectionReiniciar.style.display = 'flex'
         //sectionSeleccionarAtaque.style.display = 'none' 
     }else if(vidasEnemigo == 0){
         crearMensajeFinal("FELICITACIONES!! GANASTE")
-        sectionReiniciar.style.display = 'block'
+        sectionReiniciar.style.display = 'flex'
        // sectionSeleccionarAtaque.style.display = 'none' 
     }
 
@@ -129,24 +198,29 @@ function verificarGanador(){
 function crearMensaje(){
     //si nosotros queremos agregar algo creado con js y meter dentro del html se usa el appendChild
     let sectionM = document.getElementById('mensajes')
+    let resultadoM = document.getElementById('resultado')
+    let ataqueJu = document.getElementById('ataqueJugador')
+    let ataqueEn = document.getElementById('ataqueEnemigo')
 
     //para crear un elemento de html con createElement
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = 'Tu personaje ataco con '+ataqueJugador+', El personaje de tu enemigo ataco con '+ataqueEnemigo+' ->'+mensajeF
 
-    sectionM.appendChild(parrafo)
+    let nuevoAtaqueJu = document.createElement('p')
+    let nuevoAtaqueEn = document.createElement('p')
+
+    resultadoM.innerHTML = mensajeF
+    nuevoAtaqueJu.innerHTML = ataqueJugador
+    nuevoAtaqueEn.innerHTML = ataqueEnemigo
+
 }
 
 
 function crearMensajeFinal(resultadoF){
     //si nosotros queremos agregar algo creado con js y meter dentro del html se usa el appendChild
-    let sectionM = document.getElementById('mensajes')
+    let resultadoM = document.getElementById('resultado')
 
     //para crear un elemento de html con createElement
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = resultadoF
+    resultadoM.innerHTML = resultadoF
 
-    sectionM.appendChild(parrafo)
 
     let btnFuego = document.getElementById('btnFuego')
     btnFuego.disabled = true
@@ -158,25 +232,25 @@ function crearMensajeFinal(resultadoF){
 
 //funcion MAIN donde inicia todo el juego
 function iniciarJuego(){
-    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'none'
 
-    let sectionReiniciar = document.getElementById('Reiniciar')
-    sectionReiniciar.style.display = 'none'
+    personajes.forEach((personaje) => {
+        opcionesPersonaje = `    
+        <input type="radio" name="personaje" id="${personaje.nombre}"/>                         
+        <label class="tarjeta-de-personaje" for="${personaje.nombre}">
+            <p>${personaje.nombre}</p>
+            <img src="${personaje.foto}" alt="${personaje.nombre}">
+        </label>
+        `
+        contenedorTarjetas.innerHTML += opcionesPersonaje
 
-    let btnMascotaJugador = document.getElementById('btnSeleccionar')
-    btnMascotaJugador.addEventListener('click',seleccionarMascota)
+        })
 
-    
-    let btnFuego = document.getElementById('btnFuego')
+
+    btnMascotaJugador.addEventListener('click',seleccionarPersonaje)
     btnFuego.addEventListener('click',ataqueFuego)
-    let btnAgua = document.getElementById('btnAgua')
     btnAgua.addEventListener('click',ataqueAgua)
-    let btnTierra = document.getElementById('btnTierra')
     btnTierra.addEventListener('click',ataqueTierra)
     
-
-    let btnReiniciar = document.getElementById('btnReiniciar')
     btnReiniciar.addEventListener('click',reiniciarJuego)
 
 }
