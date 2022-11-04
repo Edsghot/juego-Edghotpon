@@ -92,7 +92,7 @@ input:checked + label{
     box-sizing: border-box;
     border-radius: 20px;
     border-color: transparent;
-    width: 100px;
+    width: 70px;
     color: white;
 }
 
