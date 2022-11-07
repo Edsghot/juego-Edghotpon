@@ -7,11 +7,15 @@ const resultadoM = document.getElementById('resultado')
 const ataqueJu = document.getElementById('ataqueJugador')
 
 const sectionMensaje = document.getElementById('total')
-const sectionSeleccionarMascota = document.getElementById('seccion-de-seleccionar-personaje')
+const sectionSeleccionarPersonaje = document.getElementById('seccion-de-seleccionar-personaje')
 const sectionReiniciar = document.getElementById('Reiniciar')    
 const btnMascotaJugador = document.getElementById('btnSeleccionar')   
 
 const btnReiniciar = document.getElementById('btnReiniciar')
+
+
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
 
 let personajes = []
 let ataqueEnemigo = []
@@ -25,6 +29,7 @@ let botones = []
 let ataquesJugador = []
 let ataquesPersonaje
 let personajeJugador
+let personajeJugadorObjeto
 let ataquesPersonajeEnemigo
 let indexAtaqueJugador
 let indexAtaqueEnemigo
@@ -32,26 +37,54 @@ let victoriasJugador = 0
 let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
-let mensajeF   
-
+let mensajeF
+//canvas
+let lienzo = mapa.getContext("2d")   
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = './assets/mapa5.png'
 
 //::::::::FIN:::::::::::::
 
 //clases
 class Edghotpon{
 
-    constructor(nombre,foto,vida){
+    constructor(nombre,foto,vida,fotoMapa,x=170,y=30){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = x
+        this.y = y
+        this.ancho = 50
+        this.alto = 50
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = fotoMapa
+        this.velocidadX = 0
+        this.velocidadY = 0
+    }
+    
+    pintarPersonaje(){
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto,        
+        )
     }
 
 }
 
-let lupin = new Edghotpon('Lupin','./assets//lupin11.png',5)
-let mehmed = new Edghotpon('Mehmed','./assets//mehmed1.png',5)
-let luan = new Edghotpon('Luan','./assets//luan1.png',5)
+let lupin = new Edghotpon('Lupin','./assets//lupin11.png',5,'./assets//lupinIcon.png')
+let mehmed = new Edghotpon('Mehmed','./assets//mehmed1.png',5,'./assets//mehmedIcon.png')
+let luan = new Edghotpon('Luan','./assets//luan1.png',5,'./assets//luanIcon.png')
+
+
+let lupinEnemigo = new Edghotpon('Lupin','./assets//lupin11.png',5,'./assets//lupinIcon.png',200,190)
+let mehmedEnemigo = new Edghotpon('Mehmed','./assets//mehmed1.png',5,'./assets//mehmedIcon.png',190,250)
+let luanEnemigo = new Edghotpon('Luan','./assets//luan1.png',5,'./assets//luanIcon.png',300,190)
+
 
 lupin.ataques.push(
     {nombre: '🔥',id: 'btnFuego'},
@@ -85,10 +118,8 @@ function aleatorio(min,max){
 }
 
 //funcion para seleccionar el jugador del enemigo
-function seleccionarPersonajeEnemigo(){
-    let ataqueAleatorio = aleatorio(0,personajes.length-1)
-    document.getElementById('spPersonajeEnemigo').innerHTML = (personajes[ataqueAleatorio].nombre)
-    
+function seleccionarPersonajeEnemigo(enemigo){
+    document.getElementById('spPersonajeEnemigo').innerHTML = enemigo.nombre
     secuenciaAtaque()
 }
 
@@ -96,13 +127,12 @@ function seleccionarPersonajeEnemigo(){
 function seleccionarPersonaje(){
     
     let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'flex'
+    sectionSeleccionarAtaque.style.display = 'none'
+    sectionMensaje.style.display = 'none'
 
-  
-    sectionMensaje.style.display = 'flex'
+    sectionSeleccionarPersonaje.style.display = 'none'
 
-    
-    sectionSeleccionarMascota.style.display = 'none'
+    //sectionSeleccionar una mapa
 
     let c=0;
     for(let i=0;i<personajes.length;i++){
@@ -118,8 +148,7 @@ function seleccionarPersonaje(){
     }
 
     extraerAtaques(personajeJugador)
-    seleccionarPersonajeEnemigo()
-    
+    iniciarMapa()
     //llamando la funcion para escoger la mascota del enemigo
 }
 
@@ -279,6 +308,11 @@ function crearMensajeFinal(resultadoF){
 //funcion MAIN donde inicia todo el juego
 function iniciarJuego(){
 
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'none'
+    sectionMensaje.style.display = 'none'
+    sectionVerMapa.style.display = 'none'    
+
     personajes.forEach((personaje) => {
         opcionesPersonaje = `    
         <input type="radio" name="personaje" id="${personaje.nombre}"/>                         
@@ -302,6 +336,115 @@ function reiniciarJuego(){
     location.reload()
 }
 
+function pintarCanvas(){
+
+    personajeJugadorObjeto.x = personajeJugadorObjeto.x +personajeJugadorObjeto.velocidadX
+    personajeJugadorObjeto.y = personajeJugadorObjeto.y + personajeJugadorObjeto.velocidadY
+    lienzo.clearRect(0,0,mapa.width,mapa.height)
+    lienzo.drawImage(
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    personajeJugadorObjeto.pintarPersonaje()
+    lupinEnemigo.pintarPersonaje()
+    mehmedEnemigo.pintarPersonaje()
+    luanEnemigo.pintarPersonaje()
+    if(personajeJugadorObjeto.velocidadX !== 0 || personajeJugadorObjeto.velocidadY !== 0){
+        revisarColision(lupinEnemigo)
+        revisarColision(mehmedEnemigo)
+        revisarColision(luanEnemigo)
+    }
+}
+
+function moverDerecha(){
+    personajeJugadorObjeto.velocidadX = 5
+}
+function moverIzquierda(){
+    personajeJugadorObjeto.velocidadX = -5}
+function moverAbajo(){
+    personajeJugadorObjeto.velocidadY = 5}
+function moverArriba(){
+    personajeJugadorObjeto.velocidadY = -5
+    
+}
+
+function detenerMovimiento(){
+    personajeJugadorObjeto.velocidadX = 0
+    personajeJugadorObjeto.velocidadY = 0
+}
+
+function sePresionoUnaTecla(event){
+    switch(event.key){
+        case 'ArrowUp':
+            moverArriba()
+            break
+        case 'ArrowDown':
+            moverAbajo()
+            break
+        case 'ArrowLeft':
+        moverIzquierda()
+        break
+        case 'ArrowRight':
+            moverDerecha()
+            break
+        default:            
+            break
+    }    
+}
+
+function iniciarMapa(){
+    mapa.width = 420
+    mapa.height = 340
+    sectionVerMapa.style.display = 'flex'
+    personajeJugadorObjeto = obtenerObjetoMascota()
+    intervalo = setInterval(pintarCanvas,50)
+
+    window.addEventListener('keydown',sePresionoUnaTecla)
+    window.addEventListener('keyup', detenerMovimiento)
+   
+}
+
+function obtenerObjetoMascota(){
+    for(let i = 0;i<personajes.length;i++){
+        if(personajeJugador === personajes[i].nombre){
+            return personajes[i]
+        }
+    }
+}
+
+function revisarColision(enemigo){
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    
+    const arribaPersonaje =  personajeJugadorObjeto.y
+    const abajoPersonaje = personajeJugadorObjeto.y + personajeJugadorObjeto.alto
+    const derechaPersonaje = personajeJugadorObjeto.x + personajeJugadorObjeto.ancho
+    const izquierdaPersonaje = personajeJugadorObjeto.x
+
+
+
+    if(abajoPersonaje < arribaEnemigo ||
+        arribaPersonaje > abajoEnemigo ||
+        derechaPersonaje < izquierdaEnemigo||
+        izquierdaPersonaje > derechaEnemigo     
+    ){
+        return 
+    }
+
+    detenerMovimiento()
+    seleccionarPersonajeEnemigo(enemigo)
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'flex'
+    sectionMensaje.style.display = 'flex'
+    sectionVerMapa.style.display = 'none'
+
+}
 //llamando a la funcion iniciar con el evento load(cuando cargue la pagina)
 window.addEventListener('load',iniciarJuego)
 
