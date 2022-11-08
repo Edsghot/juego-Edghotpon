@@ -45,6 +45,18 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = './assets/mapa5.png'
+let alturaBuscado
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoDelMapa = 450
+
+if(anchoDelMapa > anchoMaximoDelMapa){
+    anchoDelMapa = anchoMaximoDelMapa-20 
+}
+
+alturaBuscado = anchoDelMapa*600/800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaBuscado
 
 //::::::::FIN:::::::::::::
 
@@ -424,8 +436,7 @@ function sePresionoUnaTecla(event){
 }
 
 function iniciarMapa(){
-    mapa.width = 420
-    mapa.height = 340
+
     sectionVerMapa.style.display = 'flex'
     personajeJugadorObjeto = obtenerObjetoMascota()
     intervalo = setInterval(pintarCanvas,50)

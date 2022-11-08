@@ -4,9 +4,10 @@
         <meta charset="UTF-8"/>
         <title>EDGHOTPON! </title>
         <link rel="stylesheet" href="./styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head
     <body>
-
+        
         <section id = "seccion-de-seleccionar-personaje">
             <h1 class="titulo">EDGHOTPON!</h1>
 
@@ -22,14 +23,15 @@
         </section>
 
         <section id="ver-mapa">
-            <h1 class="titulo">Recoore el mapa con tu EDGHOTPON</h1>
+            <h2 class="subtitulo">Recorre el mapa con tu EDGHOTPON</h2>
             <canvas id="mapa"></canvas>
            
-            <button id="botonMapa" onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button onmouseup="detenerMovimiento()">
-            <button id="botonMapa" onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button onmouseup="detenerMovimiento()">
-            <button id="botonMapa" onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button onmouseup="detenerMovimiento()">
-            <button id="botonMapa" onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
-        
+            <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button onmouseup="detenerMovimiento()">
+           <div>
+                <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button onmouseup="detenerMovimiento()">
+                <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button onmouseup="detenerMovimiento()">
+                <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
+            </div>
         </section>
 
 
@@ -71,7 +73,7 @@
         </div>
     </div>
 
-    <script src="./js/mokepon.js"></script>
+    <script src="./js/edghotpon.js"></script>
 
     </body>    
 </html>
