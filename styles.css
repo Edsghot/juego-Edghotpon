@@ -143,6 +143,13 @@ input:checked + label{
     border: 2px solid white;
 }
 
+#botonMapa{
+    width: 60px;
+    height: 60px;
+    background-color: aqua;
+    border-radius: 50%;
+}
+
 @media(max-width: 360px) {
     .tarjetas, .tarjetas-ataques{
         flex-direction: column;

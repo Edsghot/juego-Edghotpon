@@ -6,6 +6,7 @@ const sectionM = document.getElementById('mensajes')
 const resultadoM = document.getElementById('resultado')
 const ataqueJu = document.getElementById('ataqueJugador')
 
+
 const sectionMensaje = document.getElementById('total')
 const sectionSeleccionarPersonaje = document.getElementById('seccion-de-seleccionar-personaje')
 const sectionReiniciar = document.getElementById('Reiniciar')    
@@ -17,6 +18,7 @@ const btnReiniciar = document.getElementById('btnReiniciar')
 const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 
+let contador = 0
 let personajes = []
 let ataqueEnemigo = []
 let opcionesPersonaje
@@ -103,6 +105,31 @@ mehmed.ataques.push(
 )
 
 luan.ataques.push(
+    {nombre: '🍁',id: 'btnTierra'},
+    {nombre: '🍁',id: 'btnTierra'},
+    {nombre: '🔥',id: 'btnFuego'},
+    { nombre: '🌊', id: 'btnAgua'},
+    {nombre: '🍁',id: 'btnTierra'},
+)
+
+
+lupinEnemigo.ataques.push(
+    {nombre: '🔥',id: 'btnFuego'},
+    {nombre: '🔥',id: 'btnFuego'},
+    {nombre: '🔥',id: 'btnFuego'},
+    { nombre: '🌊', id: 'btnAgua'},
+    {nombre: '🍁',id: 'btnTierra'},
+)
+
+mehmedEnemigo.ataques.push(
+    { nombre: '🌊', id: 'btnAgua'},
+    { nombre: '🌊', id: 'btnAgua'},
+    { nombre: '🌊', id: 'btnAgua'},
+    {nombre: '🔥',id: 'btnFuego'},
+    {nombre: '🍁',id: 'btnTierra'},
+)
+
+luanEnemigo.ataques.push(
     {nombre: '🍁',id: 'btnTierra'},
     {nombre: '🍁',id: 'btnTierra'},
     {nombre: '🔥',id: 'btnFuego'},
@@ -218,7 +245,9 @@ function ataqueAleatorioEnemigo(){
 }
 
 function iniciarPelea(){
-    if(ataquesJugador.length === 5){
+    contador++
+    if(contador === 5){
+        contador = 0
         verificarGanador()
     }
 }
@@ -227,7 +256,7 @@ function revisarVidas(){
 
     if(victoriasJugador === victoriasEnemigo){
         crearMensajeFinal("Esto fue un Empate!!!!")
-    }else if(vidasEnemigo > victoriasEnemigo){
+    }else if(victoriasJugador > victoriasEnemigo){
         crearMensajeFinal("FELICITACIONES!! GANASTE")
     }else{
         crearMensajeFinal("lo siento, PERDISTE!!!")    
@@ -291,8 +320,7 @@ function crearMensaje(mensajeFinal){
     nuevoAtaqueEn.innerHTML = indexAtaqueEnemigo
 
     ataqueJu.appendChild(nuevoAtaqueJu)
-    ataqueEn.appendChild(nuevoAtaqueEn)
-    
+    ataqueEn.appendChild(nuevoAtaqueEn)    
 }
 
 
@@ -438,6 +466,7 @@ function revisarColision(enemigo){
     }
 
     detenerMovimiento()
+    clearInterval(intervalo)
     seleccionarPersonajeEnemigo(enemigo)
     let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
     sectionSeleccionarAtaque.style.display = 'flex'
