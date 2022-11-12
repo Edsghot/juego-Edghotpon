@@ -95,9 +95,9 @@ let mehmed = new Edghotpon('Mehmed','./assets//mehmed1.png',5,'./assets//mehmedI
 let luan = new Edghotpon('Luan','./assets//luan1.png',5,'./assets//luanIcon.png')
 
 
-let lupinEnemigo = new Edghotpon('Lupin','./assets//lupin11.png',5,'./assets//lupinIcon.png',200,190)
-let mehmedEnemigo = new Edghotpon('Mehmed','./assets//mehmed1.png',5,'./assets//mehmedIcon.png',190,250)
-let luanEnemigo = new Edghotpon('Luan','./assets//luan1.png',5,'./assets//luanIcon.png',300,190)
+let lupinEnemigo = new Edghotpon('Lupin','./assets//lupin11.png',5,'./assets//lupinIcon.png',aleatorio(50,350),aleatorio(60,250))
+let mehmedEnemigo = new Edghotpon('Mehmed','./assets//mehmed1.png',5,'./assets//mehmedIcon.png',aleatorio(50,350),aleatorio(60,250))
+let luanEnemigo = new Edghotpon('Luan','./assets//luan1.png',5,'./assets//luanIcon.png',aleatorio(50,350),aleatorio(60,250))
 
 
 lupin.ataques.push(
@@ -485,6 +485,7 @@ function revisarColision(enemigo){
     sectionVerMapa.style.display = 'none'
 
 }
+
 //llamando a la funcion iniciar con el evento load(cuando cargue la pagina)
 window.addEventListener('load',iniciarJuego)
 

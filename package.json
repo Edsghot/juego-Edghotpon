@@ -1,0 +1,22 @@
+{
+  "name": "edghotpon",
+  "version": "1.0.0",
+  "description": "Es juego creado con html css y javascript Edghotpon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edsghot/juego-Edghotpon.git"
+  },
+  "author": "Ed soto huamanhorcco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Edsghot/juego-Edghotpon/issues"
+  },
+  "homepage": "https://github.com/Edsghot/juego-Edghotpon#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
